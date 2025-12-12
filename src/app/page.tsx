@@ -2,9 +2,8 @@ import Link from "next/link";
 import { DailyChallengeCard } from "@/components/game/DailyChallengeCard";
 import { BRAND_NAME, SITE_URL, DEFAULT_DESCRIPTION } from "@/common/constants";
 
-// Force static generation for SEO - revalidate daily since date changes
 export const dynamic = 'force-static';
-export const revalidate = 86400; // Revalidate once per day
+export const revalidate = 86400; 
 
 export default function Home() {
   const structuredData = {

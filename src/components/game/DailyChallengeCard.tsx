@@ -1,23 +1,21 @@
+"use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { DailyChallengeTimer } from "@/components/game/DailyChallengeTimer";
 
 
 export const DailyChallengeCard = () => {
-  const now = new Date();
-  const options: Intl.DateTimeFormatOptions = { 
-    month: "long", 
-    day: "numeric", 
-    year: "numeric" 
-  };
-  const dateStr = now.toLocaleDateString("en-US", options);
+  const [dateStr, setDateStr] = useState("");
 
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 0, 0, 0);
-  const diff = tomorrow.getTime() - now.getTime();
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const fallbackTime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
+  useEffect(() => {
+    const now = new Date();
+    const options: Intl.DateTimeFormatOptions = { 
+      month: "long", 
+      day: "numeric", 
+      year: "numeric" 
+    };
+    setDateStr(now.toLocaleDateString("en-US", options));
+  }, []);
 
   return (
     <Link
@@ -35,11 +33,6 @@ export const DailyChallengeCard = () => {
         <p className="text-gray-700 dark:text-gray-300 mt-2">
           Play with events that happened on this date in history
         </p>
-        <noscript>
-          <div className="text-white font-mono text-sm mt-2">
-            {fallbackTime} left
-          </div>
-        </noscript>
         <DailyChallengeTimer />
       </div>
     </Link>
